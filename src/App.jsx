@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
@@ -7,14 +7,27 @@ import Filter from "./components/Filter";
 
 import "./App.css";
 
+
 function App() {
   const [todos, setTodos] = useState([])
-
   const [search, setSearch] = useState("")
-
   const [priorityFilter, setPriorityFilter] = useState("All")
   const [statusFilter, setStatusFilter] = useState("All")
   const [categoryFilter, setCategoryFilter] = useState("All")
+
+  async function fetchTodos() {
+    const response = await fetch("http://localhost:3333/tasks");
+    const data = await response.json();
+    const mappedData = data.map(item => ({
+      text: item.title,
+      ...item
+    }))
+    setTodos(mappedData);
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const addTodo = (text, category, priority) => {
     const newTodos = [
@@ -30,12 +43,11 @@ function App() {
     setTodos(newTodos);
   };
 
-  const removeTodo = (id) => {
-    const newTodos = [...todos]
-    const filteredTodos = newTodos.filter((todo) =>
-      todo.id !== id ? todo : null
-    );
-    setTodos(filteredTodos);
+  const removeTodo = async (id) => {
+    await fetch(`http://localhost:3333/tasks/${id}`, {
+      method: "DELETE"
+    })
+    fetchTodos()
   }
 
   const completeTodo = (id) => {
@@ -58,7 +70,7 @@ function App() {
       />
 
       <div className="todo-list">
-        {todos
+        {todos && todos
           .filter((todo) =>
             priorityFilter === "All"
               ? true
@@ -69,8 +81,8 @@ function App() {
             statusFilter === "All"
               ? true
               : statusFilter === "Complete"
-              ? todo.isCompleted
-              : !todo.isCompleted
+                ? todo.isCompleted
+                : !todo.isCompleted
           )
 
           .filter((todo) =>
