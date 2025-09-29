@@ -35,11 +35,11 @@ const TodoForm = ({ addTodo }) => {
         <option value="">Select the priority</option>
         <option value="Urgent">Urgent</option>
         <option value="High">High</option>
-        <option value="Mediun">Mediun</option>
+        <option value="Medium">Mediun</option>
         <option value="Low">Low</option>
       </select>
 
-      <button type="submmit">New Task</button>
+      <button type="submit">New Task</button>
     </form>
   </div>
 }
