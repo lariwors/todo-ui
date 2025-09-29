@@ -41,11 +41,11 @@ function App() {
         title: text,
         category,
         priority,
-        isCompleted: false,
-      })
+        isCompleted: false
+      }),
     });
-  };
-    fetchTodos();
+    fetchTodos()
+  }
 
 //DELETE tasks
   const removeTodo = async (id) => {
