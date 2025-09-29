@@ -45,6 +45,7 @@ function App() {
       })
     });
   };
+    fetchTodos();
 
 //DELETE tasks
   const removeTodo = async (id) => {

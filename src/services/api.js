@@ -18,13 +18,6 @@ const postTasks = async (task) => {
     return response.json()
 }
 
-//DELETE task
-const deleteTasks = async (id) => {
-    const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
-        method: "DELETE"
-    })
-    return response.json()
-}
 //PUT update task
 const putTasks = async (id, updatedTask) => {
     const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
@@ -33,6 +26,14 @@ const putTasks = async (id, updatedTask) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedTask)
+    })
+    return response.json()
+}
+
+//DELETE task
+const deleteTasks = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+        method: "DELETE"
     })
     return response.json()
 }
