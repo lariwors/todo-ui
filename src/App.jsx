@@ -15,6 +15,7 @@ function App() {
   const [statusFilter, setStatusFilter] = useState("All")
   const [categoryFilter, setCategoryFilter] = useState("All")
 
+//GET tasks
   async function fetchTodos() {
     const response = await fetch("http://localhost:3333/tasks");
     const data = await response.json();
@@ -29,20 +30,23 @@ function App() {
     fetchTodos();
   }, []);
 
-  const addTodo = (text, category, priority) => {
-    const newTodos = [
-      ...todos,
-      {
-        id: Math.floor(Math.random() * 1000),
-        text,
+//POST tasks
+  const addTodo = async (text, category, priority) => {
+    await fetch("http://localhost:3333/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: text,
         category,
         priority,
         isCompleted: false,
-      },
-    ];
-    setTodos(newTodos);
+      })
+    });
   };
 
+//DELETE tasks
   const removeTodo = async (id) => {
     await fetch(`http://localhost:3333/tasks/${id}`, {
       method: "DELETE"
@@ -98,8 +102,10 @@ function App() {
           .map((todo) => (
             <Todo
               key={todo.id}
-              todo={todo} removeTodo={removeTodo}
+              todo={todo} 
+              removeTodo={removeTodo}
               completeTodo={completeTodo}
+              addTodo={addTodo}
             />
           ))}
       </div>
