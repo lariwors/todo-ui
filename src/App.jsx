@@ -41,10 +41,24 @@ function App() {
         title: text,
         category,
         priority,
-        isCompleted: false
+        status: false
       }),
     });
     fetchTodos()
+  }
+
+//PUT tasks
+  const statusTodo = async (id, status) => {
+    await fetch(`http://localhost:3333/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: status
+      })
+    });
+    fetchTodos();
   }
 
 //DELETE tasks
@@ -54,13 +68,6 @@ function App() {
     })
     fetchTodos()
   }
-
-  const completeTodo = (id) => {
-    const newTodos = [...todos]
-    newTodos.map((todo) => todo.id === id ? todo.isCompleted = !todo.isCompleted : todo
-    );
-    setTodos(newTodos);
-  };
 
   return (
     <div className="app">
@@ -86,8 +93,8 @@ function App() {
             statusFilter === "All"
               ? true
               : statusFilter === "Complete"
-                ? todo.isCompleted
-                : !todo.isCompleted
+                ? todo.status
+                : !todo.status
           )
 
           .filter((todo) =>
@@ -105,8 +112,8 @@ function App() {
               key={todo.id}
               todo={todo} 
               removeTodo={removeTodo}
-              completeTodo={completeTodo}
               addTodo={addTodo}
+              statusTodo={statusTodo}
             />
           ))}
       </div>
