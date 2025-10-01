@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TodoForm = ({ addTodo }) => {
+const ToDoForm = ({ addToDo }) => {
   const [value, setValue] = useState("")
   const [category, setCategory] = useState("")
   const [priority, setPriority] = useState("")
@@ -8,7 +8,7 @@ const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value || !category || !priority) return;
-    addTodo(value, category, priority)
+    addToDo(value, category, priority)
     setValue("")
     setCategory("")
     setPriority("")
@@ -44,4 +44,4 @@ const TodoForm = ({ addTodo }) => {
   </div>
 }
 
-export default TodoForm
+export default ToDoForm

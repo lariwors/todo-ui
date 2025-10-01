@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Todo from "./components/Todo";
-import TodoForm from "./components/TodoForm";
+import ToDo from "./components/ToDo";
+import ToDoForm from "./components/ToDoForm";
 import Search from "./components/Search";
 import Filter from "./components/Filter";
 
@@ -9,29 +9,29 @@ import "./App.css";
 
 
 function App() {
-  const [todos, setTodos] = useState([])
+  const [toDos, setToDos] = useState([])
   const [search, setSearch] = useState("")
   const [priorityFilter, setPriorityFilter] = useState("All")
   const [statusFilter, setStatusFilter] = useState("All")
   const [categoryFilter, setCategoryFilter] = useState("All")
 
 //GET tasks
-  async function fetchTodos() {
+  async function fetchToDos() {
     const response = await fetch("http://localhost:3333/tasks");
     const data = await response.json();
     const mappedData = data.map(item => ({
       text: item.title,
       ...item
     }))
-    setTodos(mappedData);
+    setToDos(mappedData);
   }
 
   useEffect(() => {
-    fetchTodos();
+    fetchToDos();
   }, []);
 
 //POST tasks
-  const addTodo = async (text, category, priority) => {
+  const addToDo = async (text, category, priority) => {
     await fetch("http://localhost:3333/tasks", {
       method: "POST",
       headers: {
@@ -44,11 +44,11 @@ function App() {
         status: false
       }),
     });
-    fetchTodos()
+    fetchToDos()
   }
 
 //PUT tasks
-  const statusTodo = async (id, status) => {
+  const statusToDo = async (id, status) => {
     await fetch(`http://localhost:3333/tasks/${id}`, {
       method: "PUT",
       headers: {
@@ -58,15 +58,15 @@ function App() {
         status: status
       })
     });
-    fetchTodos();
+    fetchToDos();
   }
 
 //DELETE tasks
-  const removeTodo = async (id) => {
+  const removeToDo = async (id) => {
     await fetch(`http://localhost:3333/tasks/${id}`, {
       method: "DELETE"
     })
-    fetchTodos()
+    fetchToDos()
   }
 
   return (
@@ -82,42 +82,42 @@ function App() {
       />
 
       <div className="todo-list">
-        {todos && todos
-          .filter((todo) =>
+        {toDos && toDos
+          .filter((toDo) =>
             priorityFilter === "All"
               ? true
-              : todo.priority === priorityFilter
+              : toDo.priority === priorityFilter
           )
 
-          .filter((todo) =>
+          .filter((toDo) =>
             statusFilter === "All"
               ? true
               : statusFilter === "Complete"
-                ? todo.status === true
-                : todo.status === false
+                ? toDo.status === true
+                : toDo.status === false
           )
 
-          .filter((todo) =>
+          .filter((toDo) =>
             categoryFilter === "All"
               ? true
-              : todo.category === categoryFilter
+              : toDo.category === categoryFilter
           )
 
 
-          .filter((todo) =>
-            todo.text.toLowerCase().includes(search.toLowerCase())
+          .filter((toDo) =>
+            toDo.text.toLowerCase().includes(search.toLowerCase())
           )
-          .map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo} 
-              removeTodo={removeTodo}
-              addTodo={addTodo}
-              statusTodo={statusTodo}
+          .map((toDo) => (
+            <ToDo
+              key={toDo.id}
+              toDo={toDo} 
+              removeToDo={removeToDo}
+              addToDo={addToDo}
+              statusToDo={statusToDo}
             />
           ))}
       </div>
-      <TodoForm addTodo={addTodo} />
+      <ToDoForm addToDo={addToDo} />
     </div>
   );
 }
