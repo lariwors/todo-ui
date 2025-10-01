@@ -93,8 +93,8 @@ function App() {
             statusFilter === "All"
               ? true
               : statusFilter === "Complete"
-                ? todo.status
-                : !todo.status
+                ? todo.status === true
+                : todo.status === false
           )
 
           .filter((todo) =>

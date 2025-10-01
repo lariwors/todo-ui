@@ -2,14 +2,15 @@ import React from 'react'
 
 const Todo = ({ todo, removeTodo, statusTodo }) => {
   const isComplete = todo.status === "Complete" ? true : false
-  console.log(todo)
+  
   return (
     <div className="todo"
       style={{ textDecoration: isComplete ? "line-through" : "" }}
     >
       <div className="content">
-        <p>{todo.text} - {todo.date} </p>
+        <p>{todo.text}</p>
         <p className="category">({todo.category} - {todo.priority})</p>
+        <p className="date"> Created at: {new Date(todo.createdAt).toLocaleString()}</p>
       </div>
 
       <div>
