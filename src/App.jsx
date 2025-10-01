@@ -109,7 +109,7 @@ function App() {
             toDo.text.toLowerCase().includes(search.toLowerCase())
           )
           .map((toDo) => (
-            <ToDo
+            <Todo
               key={toDo.id}
               toDo={toDo} 
               removeToDo={removeToDo}
