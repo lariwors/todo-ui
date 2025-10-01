@@ -10,7 +10,7 @@ const ToDo = ({ toDo, removeToDo, statusToDo }) => {
       <div className="content">
         <p>{toDo.text}</p>
         <p className="category">({toDo.category} - {toDo.priority})</p>
-        <p className="date"> Created at: {new Date(toDo.createdAt).toLocaleString()}</p>
+        <p className="date">Created in: {new Date(toDo.createdAt).toLocaleString()}</p>
       </div>
 
       <div>

@@ -9,6 +9,7 @@ import "./App.css";
 
 
 function App() {
+  const URL = "http://localhost:3333/tasks"
   const [toDos, setToDos] = useState([])
   const [search, setSearch] = useState("")
   const [priorityFilter, setPriorityFilter] = useState("All")
@@ -17,7 +18,7 @@ function App() {
 
 //GET tasks
   async function fetchToDos() {
-    const response = await fetch("http://localhost:3333/tasks");
+    const response = await fetch(URL);
     const data = await response.json();
     const mappedData = data.map(item => ({
       text: item.title,
@@ -32,7 +33,7 @@ function App() {
 
 //POST tasks
   const addToDo = async (text, category, priority) => {
-    await fetch("http://localhost:3333/tasks", {
+    await fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +50,7 @@ function App() {
 
 //PUT tasks
   const statusToDo = async (id, status) => {
-    await fetch(`http://localhost:3333/tasks/${id}`, {
+    await fetch(`${URL}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +64,7 @@ function App() {
 
 //DELETE tasks
   const removeToDo = async (id) => {
-    await fetch(`http://localhost:3333/tasks/${id}`, {
+    await fetch(`${URL}/${id}`, {
       method: "DELETE"
     })
     fetchToDos()
