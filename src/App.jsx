@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
@@ -17,7 +17,7 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState("All")
 
 //GET tasks
-  async function fetchToDos() {
+  const fetchToDos = useCallback(async () => {
     const response = await fetch(URL);
     const data = await response.json();
     const mappedData = data.map(item => ({
@@ -25,14 +25,14 @@ function App() {
       ...item
     }))
     setToDos(mappedData);
-  }
+  }, [URL]);
 
   useEffect(() => {
     fetchToDos();
-  }, []);
+  }, [fetchToDos]);
 
 //POST tasks
-  const addToDo = async (text, category, priority) => {
+  const addToDo = useCallback(async (text, category, priority) => {
     await fetch(URL, {
       method: "POST",
       headers: {
@@ -46,10 +46,10 @@ function App() {
       }),
     });
     fetchToDos()
-  }
+  }, [URL, fetchToDos]);
 
 //PUT tasks
-  const statusToDo = async (id, status) => {
+  const statusToDo = useCallback(async (id, status) => {
     await fetch(`${URL}/${id}`, {
       method: "PUT",
       headers: {
@@ -60,15 +60,15 @@ function App() {
       })
     });
     fetchToDos();
-  }
+  }, [URL, fetchToDos]);
 
 //DELETE tasks
-  const removeToDo = async (id) => {
+  const removeToDo = useCallback(async (id) => {
     await fetch(`${URL}/${id}`, {
       method: "DELETE"
     })
     fetchToDos()
-  }
+  }, [URL, fetchToDos]);
 
   return (
     <div className="app">
