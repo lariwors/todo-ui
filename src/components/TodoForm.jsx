@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ addToDo }) => {
   const [value, setValue] = useState("")
   const [category, setCategory] = useState("")
   const [priority, setPriority] = useState("")
@@ -8,7 +8,7 @@ const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value || !category || !priority) return;
-    addTodo(value, category, priority)
+    addToDo(value, category, priority)
     setValue("")
     setCategory("")
     setPriority("")
@@ -20,7 +20,7 @@ const TodoForm = ({ addTodo }) => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter the tittle"
+        placeholder="Enter the title"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
@@ -35,11 +35,11 @@ const TodoForm = ({ addTodo }) => {
         <option value="">Select the priority</option>
         <option value="Urgent">Urgent</option>
         <option value="High">High</option>
-        <option value="Mediun">Mediun</option>
+        <option value="Medium">Medium</option>
         <option value="Low">Low</option>
       </select>
 
-      <button type="submmit">New Task</button>
+      <button type="submit">New Task</button>
     </form>
   </div>
 }

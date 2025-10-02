@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
@@ -7,43 +7,68 @@ import Filter from "./components/Filter";
 
 import "./App.css";
 
+
 function App() {
-  const [todos, setTodos] = useState([])
-
+  const URL = "http://localhost:3333/tasks"
+  const [toDos, setToDos] = useState([])
   const [search, setSearch] = useState("")
-
   const [priorityFilter, setPriorityFilter] = useState("All")
   const [statusFilter, setStatusFilter] = useState("All")
   const [categoryFilter, setCategoryFilter] = useState("All")
 
-  const addTodo = (text, category, priority) => {
-    const newTodos = [
-      ...todos,
-      {
-        id: Math.floor(Math.random() * 1000),
-        text,
+//GET tasks
+  const fetchToDos = useCallback(async () => {
+    const response = await fetch(URL);
+    const data = await response.json();
+    const mappedData = data.map(item => ({
+      text: item.title,
+      ...item
+    }))
+    setToDos(mappedData);
+  }, [URL]);
+
+  useEffect(() => {
+    fetchToDos();
+  }, [fetchToDos]);
+
+//POST tasks
+  const addToDo = useCallback(async (text, category, priority) => {
+    await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: text,
         category,
         priority,
-        isCompleted: false,
+        status: false
+      }),
+    });
+    fetchToDos()
+  }, [URL, fetchToDos]);
+
+//PUT tasks
+  const statusToDo = useCallback(async (id, status) => {
+    await fetch(`${URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ];
-    setTodos(newTodos);
-  };
+      body: JSON.stringify({
+        status: status
+      })
+    });
+    fetchToDos();
+  }, [URL, fetchToDos]);
 
-  const removeTodo = (id) => {
-    const newTodos = [...todos]
-    const filteredTodos = newTodos.filter((todo) =>
-      todo.id !== id ? todo : null
-    );
-    setTodos(filteredTodos);
-  }
-
-  const completeTodo = (id) => {
-    const newTodos = [...todos]
-    newTodos.map((todo) => todo.id === id ? todo.isCompleted = !todo.isCompleted : todo
-    );
-    setTodos(newTodos);
-  };
+//DELETE tasks
+  const removeToDo = useCallback(async (id) => {
+    await fetch(`${URL}/${id}`, {
+      method: "DELETE"
+    })
+    fetchToDos()
+  }, [URL, fetchToDos]);
 
   return (
     <div className="app">
@@ -58,40 +83,42 @@ function App() {
       />
 
       <div className="todo-list">
-        {todos
-          .filter((todo) =>
+        {toDos && toDos
+          .filter((toDo) =>
             priorityFilter === "All"
               ? true
-              : todo.priority === priorityFilter
+              : toDo.priority === priorityFilter
           )
 
-          .filter((todo) =>
+          .filter((toDo) =>
             statusFilter === "All"
               ? true
               : statusFilter === "Complete"
-              ? todo.isCompleted
-              : !todo.isCompleted
+                ? toDo.status === true
+                : toDo.status === false
           )
 
-          .filter((todo) =>
+          .filter((toDo) =>
             categoryFilter === "All"
               ? true
-              : todo.category === categoryFilter
+              : toDo.category === categoryFilter
           )
 
 
-          .filter((todo) =>
-            todo.text.toLowerCase().includes(search.toLowerCase())
+          .filter((toDo) =>
+            toDo.text.toLowerCase().includes(search.toLowerCase())
           )
-          .map((todo) => (
+          .map((toDo) => (
             <Todo
-              key={todo.id}
-              todo={todo} removeTodo={removeTodo}
-              completeTodo={completeTodo}
+              key={toDo.id}
+              toDo={toDo} 
+              removeToDo={removeToDo}
+              addToDo={addToDo}
+              statusToDo={statusToDo}
             />
           ))}
       </div>
-      <TodoForm addTodo={addTodo} />
+      <TodoForm addToDo={addToDo} />
     </div>
   );
 }

@@ -1,20 +1,23 @@
 import React from 'react'
 
-const Todo = ({ todo, removeTodo, completeTodo }) => {
+const ToDo = ({ toDo, removeToDo, statusToDo }) => {
+  const isComplete = toDo.status === "Complete" ? true : false
+  
   return (
     <div className="todo"
-      style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
+      style={{ textDecoration: isComplete ? "line-through" : "" }}
     >
       <div className="content">
-        <p>{todo.text}</p>
-        <p className="category">({todo.category} - {todo.priority})</p>
+        <p>{toDo.text}</p>
+        <p className="category">({toDo.category} - {toDo.priority})</p>
+        <p className="date">Created in: {new Date(toDo.createdAt).toLocaleString()}</p>
       </div>
 
       <div>
-        <button className="complete" onClick={() => completeTodo(todo.id)}>
-          Complete
+        <button className="status" onClick={() => statusToDo(toDo.id, isComplete ? "Incomplete" : "Complete")}>
+          {isComplete ? "Incomplete" : "Complete"}
         </button>
-        <button className="remove" onClick={() => removeTodo(todo.id)}>
+        <button className="remove" onClick={() => removeToDo(toDo.id)}>
           x
         </button>
       </div>
@@ -22,4 +25,4 @@ const Todo = ({ todo, removeTodo, completeTodo }) => {
   )
 }
 
-export default Todo
+export default ToDo
