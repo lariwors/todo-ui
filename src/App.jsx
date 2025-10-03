@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import ToDo from "./components/Todo";
-import ToDoForm from "./components/TodoForm";
+import Todo from "./components/Todo";
+import ToDoForm from "./components/ToDoForm";
 import Search from "./components/Search";
 import Filter from "./components/Filter";
 
@@ -107,7 +107,7 @@ function App() {
             toDo.text.toLowerCase().includes(search.toLowerCase())
           )
           .map((toDo) => (
-            <ToDo
+            <Todo
               key={toDo.id}
               toDo={toDo} 
               removeToDo={removeToDo}
