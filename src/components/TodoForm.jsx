@@ -8,18 +8,16 @@ const ToDoForm = ({ addToDo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const emptyField = !value ? "title" : !category ? "category" : !priority ? "priority" : !expiration ? "expiration-date" : null;
-    const fillOrSelect = emptyField === "title" ? "fill in" : "select";
-
-    emptyField ? alert(`Please, ${fillOrSelect} the ${emptyField}.`) :
-      !isValidExpirationDate(expiration) ? alert("Expiration date must be after today") :
-        (addToDo(value, category, priority, expiration),
-          setValue(""),
-          setCategory(""),
-          setPriority(""),
-          setExpiration(""));
-
+    if (!isValidExpirationDate(expiration)) {
+      alert("Expiration date must be after today");
+      return;
+    }
+    
+    addToDo(value, category, priority, expiration);
+    setValue("");
+    setCategory("");
+    setPriority("");
+    setExpiration("");
   }
 
   const getTomorrowDate = () => {
@@ -51,15 +49,16 @@ const ToDoForm = ({ addToDo }) => {
         placeholder="Enter the title"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        required
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
         <option value="">Select a category</option>
         <option value="Work">Work</option>
         <option value="Personal">Personal</option>
         <option value="Study">Study</option>
       </select>
 
-      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+      <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
         <option value="">Select the priority</option>
         <option value="Urgent">Urgent</option>
         <option value="High">High</option>
@@ -74,6 +73,7 @@ const ToDoForm = ({ addToDo }) => {
           value={expiration}
           min={getTomorrowDate()}
           onChange={dateChange}
+          required
         />
       </div>
 
