@@ -19,13 +19,13 @@ const postTasks = async (task) => {
 }
 
 //PUT update task
-const putTasks = async (id) => {
+const putTasks = async (id, updatedTask) => {
     const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify()
+        body: JSON.stringify(updatedTask)
     })
     return response.json()
 }

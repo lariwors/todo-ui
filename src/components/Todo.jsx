@@ -11,9 +11,9 @@ const ToDo = ({ toDo, removeToDo, statusToDo }) => {
       <div className="content">
         <p>{toDo.text}</p>
         <p className="category">({toDo.category} - {toDo.priority})</p>
-        <p className="date">Created in: {new Date(toDo.createdAt).toLocaleString()}</p>
+        <p className="date">Created on: {new Date(toDo.createdOn).toLocaleString()}</p>
         <p className="expiration">
-          {expired ? 'Expired at: ' : 'Expire in: '}
+          {expired ? 'Expired on: ' : 'Expire on: '}
           {new Date(toDo.expiration).toLocaleDateString()}
         </p>
       </div>

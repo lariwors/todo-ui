@@ -9,7 +9,7 @@ const ToDoForm = ({ addToDo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emptyField = !value ? "title" : !category ? "category" : !priority ? "priority" : !expiration ? "expiration date" : null;
+    const emptyField = !value ? "title" : !category ? "category" : !priority ? "priority" : !expiration ? "expiration-date" : null;
     const fillOrSelect = emptyField === "title" ? "fill in" : "select";
 
     emptyField ? alert(`Please, ${fillOrSelect} the ${emptyField}.`) :

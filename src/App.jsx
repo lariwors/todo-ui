@@ -92,11 +92,9 @@ function App() {
           )
 
           .filter((toDo) =>
-            statusFilter === "All"
-              ? true
-              : statusFilter === "Complete"
-                ? toDo.status === true
-                : toDo.status === false
+            statusFilter === "All" ? true : 
+            statusFilter === "Complete" ? toDo.status === "Complete" : toDo.status === "Incomplete"
+
           )
 
           .filter((toDo) =>
@@ -104,7 +102,6 @@ function App() {
               ? true
               : toDo.category === categoryFilter
           )
-
 
           .filter((toDo) =>
             toDo.text.toLowerCase().includes(search.toLowerCase())
