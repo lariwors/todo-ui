@@ -5,7 +5,7 @@ const ToDo = ({ toDo, removeToDo, statusToDo }) => {
   const expired = toDo.expiration && new Date(toDo.expiration) < new Date()
   
   return (
-    <div className={`todo ${expired ? 'expired' : ''}`}
+    <div className={`todo ${expired ? 'expired' : ''} ${isComplete ? 'complete' : ''}`}
          style={{ textDecoration: isComplete ? "line-through" : "" }}>
       
       <div className="content">
@@ -13,7 +13,7 @@ const ToDo = ({ toDo, removeToDo, statusToDo }) => {
         <p className="category">({toDo.category} - {toDo.priority})</p>
         <p className="date">Created in: {new Date(toDo.createdAt).toLocaleString()}</p>
         <p className="expiration">
-          {expired ? 'Expired at: ' : 'Expires in: '}
+          {expired ? 'Expired at: ' : 'Expire in: '}
           {new Date(toDo.expiration).toLocaleDateString()}
         </p>
       </div>

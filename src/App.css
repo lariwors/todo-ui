@@ -12,7 +12,7 @@ body {
   max-width: 600px;
   margin: 0 auto 300px;
   background-color: rgb(243, 216, 255);
-  box-shadow: 0 0 10px rgb(79, 19, 107);
+  box-shadow: 0 0 10px #4f136b;
   opacity: 0.9;
   padding: 20px 30px;
   border-radius: 10px;
@@ -35,7 +35,7 @@ input {
 }
 
 button {
-  background-color: rgb(116, 29, 156);
+  background-color: #741d9c;
   color: white;
   padding: 5px 10px;
   margin-right: 10px;
@@ -53,12 +53,13 @@ button:hover {
 .todo-list {
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgb(116, 29, 156);
+  border-bottom: 1px solid #741d9c;
 }
 
 .todo {
   background-color: #f8f8f8e0;
-  box-shadow: 0 0 10px rgb(79, 19, 107);
+  box-shadow: 0 0 10px #4f136b;
+  border-left: 4px solid #912fbe;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -90,7 +91,7 @@ select {
 
 .filter,
 .search {
-  border-bottom: 1px solid rgb(116, 29, 156);
+  border-bottom: 1px solid #741d9c;
   margin-bottom: 22px;
   padding-bottom: 10px;
 }
@@ -121,4 +122,19 @@ select {
 
 .filter-options div {
   flex: 1 1 0;
+}
+
+.todo.expired {
+  background-color: #ffebee !important; 
+  border-left: 4px solid #f44336;
+  box-shadow: 0 0 10px #f4433633;
+}
+.todo.expired .expiration{
+  color: #d32f2f;
+  font-weight: bold;
+}
+.todo.complete {
+  background-color: #e8f5e8 !important; 
+  border-left: 4px solid #4caf50;
+  box-shadow: 0 0 10px #4caf5033;
 }
