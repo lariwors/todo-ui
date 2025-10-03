@@ -1,17 +1,21 @@
 import React from 'react'
 
 const ToDo = ({ toDo, removeToDo, statusToDo }) => {
-  const isComplete = toDo.status === "Complete" ? true : false
+  const isComplete = toDo.status === "Complete"
+  const expired = toDo.expiration && new Date(toDo.expiration) < new Date()
   
   return (
-    <div className="todo"
-      style={{ textDecoration: isComplete ? "line-through" : "" }}
-    >
+    <div className={`todo ${expired ? 'expired' : ''}`}
+         style={{ textDecoration: isComplete ? "line-through" : "" }}>
+      
       <div className="content">
         <p>{toDo.text}</p>
         <p className="category">({toDo.category} - {toDo.priority})</p>
         <p className="date">Created in: {new Date(toDo.createdAt).toLocaleString()}</p>
-        <p className="expiration">Expire in: {new Date(toDo.expiration).toLocaleString()}</p>
+        <p className="expiration">
+          {expired ? 'Expired at: ' : 'Expires in: '}
+          {new Date(toDo.expiration).toLocaleDateString()}
+        </p>
       </div>
 
       <div>

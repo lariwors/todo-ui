@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import ToDo from "./components/ToDo";
+import ToDo from "./components/Todo";
 import ToDoForm from "./components/ToDoForm";
 import Search from "./components/Search";
 import Filter from "./components/Filter";
@@ -32,7 +32,7 @@ function App() {
   }, []);
 
 //POST tasks
-  const addToDo = async (text, category, priority) => {
+  const addToDo = async (text, category, priority, expiration) => {
     await fetch(URL, {
       method: "POST",
       headers: {
@@ -42,7 +42,8 @@ function App() {
         title: text,
         category,
         priority,
-        status: false
+        status: false,
+        expiration
       }),
     });
     fetchToDos()
@@ -113,7 +114,6 @@ function App() {
               key={toDo.id}
               toDo={toDo} 
               removeToDo={removeToDo}
-              addToDo={addToDo}
               statusToDo={statusToDo}
             />
           ))}
