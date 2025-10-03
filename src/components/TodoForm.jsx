@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ToDoForm = ({ addToDo }) => {
+const TodoForm = ({ addToDo }) => {
   const [value, setValue] = useState("")
   const [category, setCategory] = useState("")
   const [priority, setPriority] = useState("")
@@ -82,4 +82,4 @@ const ToDoForm = ({ addToDo }) => {
   </div>
 }
 
-export default ToDoForm
+export default TodoForm

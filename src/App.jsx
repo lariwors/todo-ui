@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Todo from "./components/Todo";
-import ToDoForm from "./components/ToDoForm";
+import TodoForm from "./components/ToDoForm";
 import Search from "./components/Search";
 import Filter from "./components/Filter";
 
@@ -115,7 +115,7 @@ function App() {
             />
           ))}
       </div>
-      <ToDoForm addToDo={addToDo} />
+      <TodoForm addToDo={addToDo} />
     </div>
   );
 }
