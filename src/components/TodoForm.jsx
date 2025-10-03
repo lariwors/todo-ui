@@ -82,4 +82,4 @@ const TodoForm = ({ addToDo }) => {
   </div>
 }
 
-export default TodoForm
+export default TodoForm;
