@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FORM_OPTIONS } from "../constants/FormOptions";
+import { BUTTON_TEXT } from "../constants/buttonText";
 
 const TodoForm = ({ addToDo }) => {
   const [value, setValue] = useState("")
@@ -35,10 +37,6 @@ const TodoForm = ({ addToDo }) => {
   const dateChange = (e) => {
     const selectedDate = e.target.value;
     setExpiration(selectedDate);
-
-    selectedDate && !isValidExpirationDate(selectedDate) ?
-      alert("Expiration date cannot be today or in the past") :
-      null;
   }
 
   return <div className="todo-form">
@@ -53,17 +51,17 @@ const TodoForm = ({ addToDo }) => {
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)} required>
         <option value="">Select a category</option>
-        <option value="Work">Work</option>
-        <option value="Personal">Personal</option>
-        <option value="Study">Study</option>
+        <option value={FORM_OPTIONS.CATEGORY.WORK}>{FORM_OPTIONS.CATEGORY.WORK}</option>
+        <option value={FORM_OPTIONS.CATEGORY.PERSONAL}>{FORM_OPTIONS.CATEGORY.PERSONAL}</option>
+        <option value={FORM_OPTIONS.CATEGORY.STUDY}>{FORM_OPTIONS.CATEGORY.STUDY}</option>
       </select>
 
       <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
         <option value="">Select the priority</option>
-        <option value="Urgent">Urgent</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
+        <option value={FORM_OPTIONS.PRIORITY.URGENT}>{FORM_OPTIONS.PRIORITY.URGENT}</option>
+        <option value={FORM_OPTIONS.PRIORITY.HIGH}>{FORM_OPTIONS.PRIORITY.HIGH}</option>
+        <option value={FORM_OPTIONS.PRIORITY.MEDIUM}>{FORM_OPTIONS.PRIORITY.MEDIUM}</option>
+        <option value={FORM_OPTIONS.PRIORITY.LOW}>{FORM_OPTIONS.PRIORITY.LOW}</option>
       </select>
 
       <div className="expiration-date">
@@ -77,7 +75,7 @@ const TodoForm = ({ addToDo }) => {
         />
       </div>
 
-      <button type="submit">New Task</button>
+      <button type="submit">{BUTTON_TEXT.SUBMIT}</button>
     </form>
   </div>
 }
