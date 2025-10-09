@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FORM_OPTIONS } from "../constants/FormOptions";
+import { FORM_OPTIONS } from "../constants/formOptions";
 import { BUTTON_TEXT } from "../constants/buttonText";
 
 const TodoForm = ({ addToDo }) => {
@@ -39,45 +39,59 @@ const TodoForm = ({ addToDo }) => {
     setExpiration(selectedDate);
   }
 
-  return <div className="todo-form">
-    <h2>Create a new task:</h2>
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Enter the title"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        required
-      />
-      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-        <option value="">Select a category</option>
-        <option value={FORM_OPTIONS.CATEGORY.WORK}>{FORM_OPTIONS.CATEGORY.WORK}</option>
-        <option value={FORM_OPTIONS.CATEGORY.PERSONAL}>{FORM_OPTIONS.CATEGORY.PERSONAL}</option>
-        <option value={FORM_OPTIONS.CATEGORY.STUDY}>{FORM_OPTIONS.CATEGORY.STUDY}</option>
-      </select>
-
-      <select value={priority} onChange={(e) => setPriority(e.target.value)} required>
-        <option value="">Select the priority</option>
-        <option value={FORM_OPTIONS.PRIORITY.URGENT}>{FORM_OPTIONS.PRIORITY.URGENT}</option>
-        <option value={FORM_OPTIONS.PRIORITY.HIGH}>{FORM_OPTIONS.PRIORITY.HIGH}</option>
-        <option value={FORM_OPTIONS.PRIORITY.MEDIUM}>{FORM_OPTIONS.PRIORITY.MEDIUM}</option>
-        <option value={FORM_OPTIONS.PRIORITY.LOW}>{FORM_OPTIONS.PRIORITY.LOW}</option>
-      </select>
-
-      <div className="expiration-date">
-        <label>Expiration date:</label>
+  return (
+    <div className="todo-form">
+      <h2>Create a new task:</h2>
+      <form onSubmit={handleSubmit}>
         <input
-          type="date"
-          value={expiration}
-          min={getTomorrowDate()}
-          onChange={dateChange}
+          type="text"
+          placeholder="Enter the title"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           required
         />
-      </div>
+        
+        <select 
+          value={category} 
+          onChange={(e) => setCategory(e.target.value)} 
+          required
+        >
+          <option value="">Select a category</option>
+          {Object.keys(FORM_OPTIONS.CATEGORY).map(key => (
+            <option key={key} value={FORM_OPTIONS.CATEGORY[key]}>
+              {FORM_OPTIONS.CATEGORY[key]}
+            </option>
+          ))}
+        </select>
 
-      <button type="submit">{BUTTON_TEXT.SUBMIT}</button>
-    </form>
-  </div>
+        <select 
+          value={priority} 
+          onChange={(e) => setPriority(e.target.value)} 
+          required
+        >
+          <option value="">Select the priority</option>
+          {Object.keys(FORM_OPTIONS.PRIORITY).map(key => (
+            <option key={key} value={FORM_OPTIONS.PRIORITY[key]}>
+              {FORM_OPTIONS.PRIORITY[key]}
+            </option>
+          ))}
+        </select>
+
+        <div className="expiration-date">
+          <label>Expiration date:</label>
+          <input
+            type="date"
+            value={expiration}
+            min={getTomorrowDate()}
+            onChange={dateChange}
+            required
+          />
+        </div>
+
+        <button type="submit">{BUTTON_TEXT.SUBMIT}</button>
+      </form>
+    </div>
+  )
 }
 
 export default TodoForm;
