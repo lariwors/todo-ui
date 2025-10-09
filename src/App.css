@@ -2,6 +2,7 @@
   --primary-color: #741d9c;
   --secondary-color: #912fbe;
   --background-color: #f3d8ff;
+  --new-todo-background-color: #f8f8f8e0;
   --text-color: #333;
   --completed-color: #5ab64e;
   --completed-color-background: #e8f5e8;
@@ -62,7 +63,7 @@ button:hover {
   border-bottom: 1px solid var(--primary-color);
 }
 .todo {
-  background-color: var(--background-color);
+  background-color: var(--new-todo-background-color);
   box-shadow: 0 0 10px var(--primary-color);
   border-left: 4px solid var(--secondary-color);
   padding: 10px;
