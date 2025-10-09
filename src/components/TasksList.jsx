@@ -47,25 +47,17 @@ function TaskList() {
 
     return (
         <div>
-            { }
             <h2>Tasks ({tasks.length})</h2>
-
-            { }
             {tasks.map(task => (
                 <div key={task.id} className={task.completed ? 'completed' : ''}>
-                    {}
                     <h3>{task.text}</h3>
-
-                    {}
                     <p>Category: {task.category} | Priority: {task.priority}</p>
                     <p>Due: {task.expiration}</p>
                     
-                    {}
                     <button onClick={() => handleToggleComplete(task.id)}>
                         {task.completed ? 'Mark Incomplete' : 'Mark Complete'}
                     </button>
                     
-                    {}
                     <button onClick={() => handleDeleteTask(task.id)}>
                         Delete
                     </button>
